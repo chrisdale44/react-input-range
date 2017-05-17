@@ -13,14 +13,22 @@
 }
 
 .input-range__label--min {
-  left: 0;
+  display: none;
 }
 
 .input-range__label--max {
-  right: 0;
+  display: none;
 }
 
 .input-range__label--value {
   position: absolute;
   top: $input-range-label-value-position-top;
+
+  .min & {
+    left: 0;
+  }
+
+  .max & {
+    right: 0;
+  }
 }
