@@ -112,7 +112,7 @@ export default class InputRange extends React.Component {
       return this.props.classNames.inputRange;
     }
 
-    return this.props.classNames.disabledInputRange;
+    return `${this.props.classNames.inputRange} ${this.props.classNames.disabledInputRange}`;
   }
 
   /**

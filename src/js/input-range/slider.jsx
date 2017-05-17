@@ -239,7 +239,7 @@ export default class Slider extends React.Component {
     const style = this.getStyle();
 
     return (
-      <div className={this.props.type}>
+      <div className={this.props.classNames[`${this.props.type}ValueLabel`]}>
         <Label
           classNames={this.props.classNames}
           formatLabel={this.props.formatLabel}
