@@ -55,10 +55,6 @@
 .input-range__label-container {
   position: relative; }
 
-html {
-  touch-action: none;
-  -ms-scroll-chaining: none; }
-
 .input-range__track {
   background: #eaeaea;
   border-radius: 0.3rem;
