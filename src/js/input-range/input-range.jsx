@@ -509,6 +509,27 @@ export default class InputRange extends React.Component {
   }
 
   /**
+   * Handle any "onFocus" event received by the component
+   * @private
+   * @param {SyntheticEvent} event
+   */
+  @autobind
+  onFocus(event) {
+    this.handleInteractionStart(event);
+  }
+
+  /**
+   * Handle any "onBlur" event received by the component
+   * @private
+   * @param {SyntheticEvent} event
+   * @return {void}
+   */
+  @autobind
+  onBlur(event) {
+    this.handleInteractionEnd(event);
+  }
+
+  /**
    * Return JSX of sliders
    * @private
    * @return {JSX.Element}
@@ -540,6 +561,8 @@ export default class InputRange extends React.Component {
           minValue={minValue}
           onSliderDrag={this.handleSliderDrag}
           onSliderKeyDown={this.handleSliderKeyDown}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
           percentage={percentage}
           type={key}
           value={value} />

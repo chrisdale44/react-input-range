@@ -19,6 +19,8 @@ export default class Slider extends React.Component {
    * @property {Function} minValue
    * @property {Function} onSliderDrag
    * @property {Function} onSliderKeyDown
+   * @property {Function} onFocus
+   * @property {Function} onBlur
    * @property {Function} percentage
    * @property {Function} type
    * @property {Function} value
@@ -33,6 +35,8 @@ export default class Slider extends React.Component {
       minValue: PropTypes.number,
       onSliderDrag: PropTypes.func.isRequired,
       onSliderKeyDown: PropTypes.func.isRequired,
+      onFocus: PropTypes.func.isRequired,
+      onBlur: PropTypes.func.isRequired,
       percentage: PropTypes.number.isRequired,
       type: PropTypes.string.isRequired,
       value: PropTypes.number.isRequired,
@@ -49,6 +53,8 @@ export default class Slider extends React.Component {
    * @param {number} [props.minValue]
    * @param {Function} props.onSliderKeyDown
    * @param {Function} props.onSliderDrag
+   * @param {Function} props.onFocus
+   * @param {Function} props.onBlur
    * @param {number} props.percentage
    * @param {number} props.type
    * @param {number} props.value
@@ -61,6 +67,9 @@ export default class Slider extends React.Component {
      * @type {?Component}
      */
     this.node = null;
+    this.state = {
+      sliderSelected: false,
+    };
   }
 
   /**
@@ -84,6 +93,32 @@ export default class Slider extends React.Component {
     const style = {
       position: 'absolute',
       left: `${perc}%`,
+    };
+
+    return style;
+  }
+
+  /**
+   * @private
+   * @return {Object}
+   */
+  getSliderStyle() {
+    if (this.state.sliderSelected) {
+      return {
+        backgroundColor: this.props.classNames.selectedColor,
+      };
+    }
+    return {};
+  }
+
+  /**
+   * @private
+   * @return {Object}
+   */
+  getLabelStyle() {
+    const color = this.state.sliderSelected ? this.props.classNames.selectedColor : this.props.classNames.primaryColor;
+    const style = {
+      color,
     };
 
     return style;
@@ -167,6 +202,7 @@ export default class Slider extends React.Component {
    */
   @autobind
   handleMouseDown() {
+    this.setState({ sliderSelected: true });
     this.addDocumentMouseMoveListener();
     this.addDocumentMouseUpListener();
   }
@@ -177,6 +213,7 @@ export default class Slider extends React.Component {
    */
   @autobind
   handleMouseUp() {
+    this.setState({ sliderSelected: false });
     this.removeDocumentMouseMoveListener();
     this.removeDocumentMouseUpListener();
   }
@@ -197,6 +234,7 @@ export default class Slider extends React.Component {
    */
   @autobind
   handleTouchStart() {
+    this.setState({ sliderSelected: true });
     this.addDocumentTouchEndListener();
     this.addDocumentTouchMoveListener();
   }
@@ -217,6 +255,7 @@ export default class Slider extends React.Component {
    */
   @autobind
   handleTouchEnd() {
+    this.setState({ sliderSelected: false });
     this.removeDocumentTouchMoveListener();
     this.removeDocumentTouchEndListener();
   }
@@ -232,25 +271,42 @@ export default class Slider extends React.Component {
   }
 
   /**
+   * @private
+   * @param {SyntheticEvent} event
+   * @return {void}
+   */
+  @autobind
+  onFocus(event) {
+    this.setState({ sliderSelected: true });
+    this.props.onFocus(event, this.props.type);
+  }
+
+  /**
+   * @private
+   * @param {SyntheticEvent} event
+   * @return {void}
+   */
+  @autobind
+  onBlur(event) {
+    this.setState({ sliderSelected: false });
+    this.props.onBlur(event, this.props.type);
+  }
+
+  /**
    * @override
    * @return {JSX.Element}
    */
   render() {
     const style = this.getStyle();
+    const sliderStyle = this.getSliderStyle();
+    const labelStyle = this.getLabelStyle();
 
     return (
       <div className={this.props.classNames[`${this.props.type}ValueLabel`]}>
-        <Label
-          classNames={this.props.classNames}
-          formatLabel={this.props.formatLabel}
-          type="value">
-          {this.props.value}
-        </Label>
         <span
           className={this.props.classNames.sliderContainer}
           ref={(node) => { this.node = node; }}
           style={style}>
-
           <div
             aria-labelledby={this.props.ariaLabelledby}
             aria-controls={this.props.ariaControls}
@@ -262,9 +318,19 @@ export default class Slider extends React.Component {
             onKeyDown={this.handleKeyDown}
             onMouseDown={this.handleMouseDown}
             onTouchStart={this.handleTouchStart}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
             role="slider"
-            tabIndex="0" />
+            tabIndex="0"
+            style={sliderStyle} />
         </span>
+        <Label
+          classNames={this.props.classNames}
+          formatLabel={this.props.formatLabel}
+          type="value"
+          style={labelStyle}>
+          {this.props.value}
+        </Label>
       </div>
     );
   }
