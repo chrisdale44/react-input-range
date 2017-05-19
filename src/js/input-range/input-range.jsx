@@ -103,6 +103,27 @@ export default class InputRange extends React.Component {
   }
 
   /**
+   * Handle any "onBlur" event received by the component
+   * @private
+   * @param {SyntheticEvent} event
+   * @return {void}
+   */
+  @autobind
+  onBlur(event) {
+    this.handleInteractionEnd(event);
+  }
+
+  /**
+   * Handle any "onFocus" event received by the component
+   * @private
+   * @param {SyntheticEvent} event
+   */
+  @autobind
+  onFocus(event) {
+    this.handleInteractionStart(event);
+  }
+
+  /**
    * Return the CSS class name of the component
    * @private
    * @return {string}
@@ -506,27 +527,6 @@ export default class InputRange extends React.Component {
   handleTouchEnd(event) {
     this.handleInteractionEnd(event);
     this.removeDocumentTouchEndListener();
-  }
-
-  /**
-   * Handle any "onFocus" event received by the component
-   * @private
-   * @param {SyntheticEvent} event
-   */
-  @autobind
-  onFocus(event) {
-    this.handleInteractionStart(event);
-  }
-
-  /**
-   * Handle any "onBlur" event received by the component
-   * @private
-   * @param {SyntheticEvent} event
-   * @return {void}
-   */
-  @autobind
-  onBlur(event) {
-    this.handleInteractionEnd(event);
   }
 
   /**

@@ -32,4 +32,5 @@ Label.propTypes = {
   classNames: PropTypes.objectOf(PropTypes.string).isRequired,
   formatLabel: PropTypes.func,
   type: PropTypes.string.isRequired,
+  style: PropTypes.Object.isRequired,
 };

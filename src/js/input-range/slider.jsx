@@ -86,6 +86,28 @@ export default class Slider extends React.Component {
 
   /**
    * @private
+   * @param {SyntheticEvent} event
+   * @return {void}
+   */
+  @autobind
+  onBlur(event) {
+    this.setState({ sliderSelected: false });
+    this.props.onBlur(event, this.props.type);
+  }
+
+  /**
+   * @private
+   * @param {SyntheticEvent} event
+   * @return {void}
+   */
+  @autobind
+  onFocus(event) {
+    this.setState({ sliderSelected: true });
+    this.props.onFocus(event, this.props.type);
+  }
+
+  /**
+   * @private
    * @return {Object}
    */
   getStyle() {
@@ -268,28 +290,6 @@ export default class Slider extends React.Component {
   @autobind
   handleKeyDown(event) {
     this.props.onSliderKeyDown(event, this.props.type);
-  }
-
-  /**
-   * @private
-   * @param {SyntheticEvent} event
-   * @return {void}
-   */
-  @autobind
-  onFocus(event) {
-    this.setState({ sliderSelected: true });
-    this.props.onFocus(event, this.props.type);
-  }
-
-  /**
-   * @private
-   * @param {SyntheticEvent} event
-   * @return {void}
-   */
-  @autobind
-  onBlur(event) {
-    this.setState({ sliderSelected: false });
-    this.props.onBlur(event, this.props.type);
   }
 
   /**
