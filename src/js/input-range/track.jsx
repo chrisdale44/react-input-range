@@ -94,10 +94,11 @@ export default class Track extends React.Component {
 
     return (
       <div
-        className={`${this.props.classNames.track} ${this.props.classNames.trackBackground}`}
+        className={this.props.classNames.track}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleTouchStart}
         ref={(node) => { this.node = node; }}>
+        <div className={this.props.classNames.trackBackground} />
         <div
           style={activeTrackStyle}
           className={`${this.props.classNames.track} ${this.props.classNames.activeTrack}`} />

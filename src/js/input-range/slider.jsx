@@ -328,7 +328,7 @@ export default class Slider extends React.Component {
           classNames={this.props.classNames}
           formatLabel={this.props.formatLabel}
           type="value"
-          style={labelStyle}>
+          labelStyle={labelStyle}>
           {this.props.value}
         </Label>
       </div>

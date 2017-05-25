@@ -13,7 +13,7 @@ export default function Label(props) {
 
   return (
     <span className={`${props.classNames.label} ${props.classNames[`${props.type}Label`]}`} >
-      <span className={props.classNames.labelContainer} style={props.style}>
+      <span className={props.classNames.labelContainer} style={props.labelStyle}>
         {labelValue}
       </span>
     </span>
@@ -32,5 +32,5 @@ Label.propTypes = {
   classNames: PropTypes.objectOf(PropTypes.string).isRequired,
   formatLabel: PropTypes.func,
   type: PropTypes.string.isRequired,
-  style: PropTypes.Object.isRequired,
+  labelStyle: PropTypes.object,
 };
