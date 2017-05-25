@@ -7,7 +7,6 @@
 .input-range {
   height: $input-range-slider-height;
   position: relative;
-  width: 100%;
-  ms-touch-action: pan-x;
   touch-action: pan-x;
+  width: 100%;
 }
